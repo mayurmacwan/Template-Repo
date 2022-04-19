@@ -1,0 +1,41 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool:
+  vmImage: windows-2019
+  
+
+steps:
+
+- task: AzureResourceManagerTemplateDeployment@3
+  inputs:
+    deploymentScope: 'Resource Group'
+    azureResourceManagerConnection: 'Visual Studio Enterprise Subscription (394a026a-c4f7-4a76-a134-408028622ca2)'
+    subscriptionId: '394a026a-c4f7-4a76-a134-408028622ca2'
+    action: 'Create Or Update Resource Group'
+    resourceGroupName: 'CIRg'
+    location: 'UK South'
+    templateLocation: 'Linked artifact'
+    csmFile: 'get-student-api-la/LogicApp.json'
+    csmParametersFile: 'get-student-api-la/LogicApp.parameters.json'
+    deploymentMode: 'Incremental'
+    addSpnToEnvironment: true
+
+- task: AzureResourceManagerTemplateDeployment@3
+  inputs:
+    deploymentScope: 'Resource Group'
+    azureResourceManagerConnection: 'Visual Studio Enterprise Subscription (394a026a-c4f7-4a76-a134-408028622ca2)'
+    subscriptionId: '394a026a-c4f7-4a76-a134-408028622ca2'
+    action: 'Create Or Update Resource Group'
+    resourceGroupName: 'CIRg'
+    location: 'UK South'
+    templateLocation: 'Linked artifact'
+    csmFile: 'post-student-api-la/LogicApp.json'
+    csmParametersFile: 'post-student-api-la/LogicApp.parameters.json'
+    deploymentMode: 'Incremental'
+    addSpnToEnvironment: true
