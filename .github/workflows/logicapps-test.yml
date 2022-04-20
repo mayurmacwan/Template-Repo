@@ -1,5 +1,5 @@
 #Name of the GitHub Action
-name: Deploy Logic App
+name: Deploy Logic App TEST
 
 #Set the action on which the workflow will trigger
 on:
