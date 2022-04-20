@@ -80,7 +80,10 @@
               "kind": "http",
               "inputs": {
                 "statusCode": 200,
-                "body": "@triggerBody()"
+                "headers": {
+                  "Content-type": "application/json"
+                },
+                "body": "@{triggerBody()} "
               },
               "runAfter": {}
             }
