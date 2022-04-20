@@ -5,7 +5,7 @@ name: Deploy Logic App DEV
 on:
  push:
    branches:
-     - dev
+     - 'Dev'
 
 jobs:
   validate-and-deploy:
