@@ -81,7 +81,7 @@
               "inputs": {
                 "statusCode": 200,
                 "headers": {
-                  "Content-type": "application/json"
+                  "Content-type": "application/xml"
                 },
                 "body": "@{triggerBody()} "
               },
