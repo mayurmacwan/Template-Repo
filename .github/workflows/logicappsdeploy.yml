@@ -34,9 +34,10 @@ jobs:
     #Deploy the ARM Template
     - name: Deploy Logic App
       run: |
-       echo "::set-env name=logicappurl::$(az deployment group create -g devrg --template-file ./get-student-api-la/LogicApp.json --parameters ./get-student-api-la/LogicApp.parameters.json)"
+        az deployment group create -g devrg --template-file ./get-student-api-la/LogicApp.json --parameters ./get-student-api-la/LogicApp.parameters.json
       shell: bash   
       
     # Log Out From Azure 
     - name: Logout
       run: az logout
+ 
