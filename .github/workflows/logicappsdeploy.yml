@@ -6,6 +6,9 @@ on:
  push:
   branches: 
      - Dev
+ pull_request:
+  branches: 
+     - release*
 
 jobs:
   
@@ -51,6 +54,7 @@ jobs:
   DeployTest:
    name: Deploy to TEST
    needs: [DeployDev]
+   if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
    runs-on: ubuntu-latest
    environment:
     name: Test
