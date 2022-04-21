@@ -25,6 +25,8 @@ jobs:
     #Checkout the repository
     - name: Checkout Repository
       uses: actions/checkout@v3
+      with:
+       ref: 'Dev'
     
 
     #Use the azure provided action to log on to azure using service pricipal
