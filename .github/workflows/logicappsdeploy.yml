@@ -8,7 +8,7 @@ on:
      - Dev
  pull_request:
   branches: 
-     - release*
+     - release-april2022
 
 jobs:
   
@@ -67,7 +67,7 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v3
       with:
-       ref: release*
+       ref: release-april2022
     
 
     #Use the azure provided action to log on to azure using service pricipal
