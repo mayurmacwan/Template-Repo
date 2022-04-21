@@ -1,17 +1,31 @@
 #Name of the GitHub Action
-name: Deploy Logic App TEST
+name: Deploy Logic Apps
 
 #Set the action on which the workflow will trigger
 on:
  push:
    branches:
-     - master
+     - 'Dev'
+ pull_request:
+   branches:
+     - Master
 
 jobs:
-  validate-and-deploy:
+  Build:
    runs-on: ubuntu-latest
+   steps:
+    - uses: actions/checkout@v2
+    - name: Compile
+    
+  DeployDev:
+   name: Deploy to Dev
+   if: github.event_name== 'push'
+   needs: [Build]
+   runs-on: ubuntu-latest
+   environment:
+     name: Dev
    env:
-     ENV_RESOURCEGROUP: testrg
+     ENV_RESOURCEGROUP: devrg
      ENV_RESOURCEGROUPLOCATION: uksouth
 
    steps:
@@ -34,7 +48,7 @@ jobs:
     #Deploy the ARM Template
     - name: Deploy Logic App
       run: |
-        az deployment group validate -g ${{env.ENV_RESOURCEGROUP}} --template-file ./get-student-api-la/LogicApp.json --parameters ./get-student-api-la/LogicApp.parameters.json
+        az deployment group create -g ${{env.ENV_RESOURCEGROUP}} --template-file ./get-student-api-la/LogicApp.json --parameters ./get-student-api-la/LogicApp.parameters.json
       shell: bash   
       
     # Log Out From Azure 
