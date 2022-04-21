@@ -86,12 +86,12 @@
                 "body": "@{triggerBody()} "
               },
               "runAfter": {
-                "Compose": [
+                "Compose_Renamed": [
                   "Succeeded"
                 ]
               }
             },
-            "Compose": {
+            "Compose_Renamed": {
               "type": "Compose",
               "inputs": "@triggerBody()",
               "runAfter": {}
