@@ -74,7 +74,17 @@
       "properties": {
         "definition": {
           "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
-          "actions": {},
+          "actions": {
+            "Response": {
+              "type": "Response",
+              "kind": "http",
+              "inputs": {
+                "statusCode": 200,
+                "body": "@triggerBody()"
+              },
+              "runAfter": {}
+            }
+          },
           "parameters": {},
           "triggers": {
             "manual": {

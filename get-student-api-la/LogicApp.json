@@ -85,6 +85,15 @@
                 },
                 "body": "@{triggerBody()} "
               },
+              "runAfter": {
+                "Compose_Renamed": [
+                  "Succeeded"
+                ]
+              }
+            },
+            "Compose_Renamed": {
+              "type": "Compose",
+              "inputs": "@triggerBody()",
               "runAfter": {}
             }
           },
