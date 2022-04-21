@@ -7,32 +7,32 @@ on:
    branches:
      - 'Dev'
  pull_request:
-   branches:
-     - Master
+  branches: 
+     - master
 
 jobs:
   Build:
    runs-on: ubuntu-latest
    steps:
-    - uses: actions/checkout@v2
-    - name: Compile
+    #Checkout the repository
+    - name: Checkout Repository
+      uses: actions/checkout@master
     
   DeployDev:
    name: Deploy to Dev
-   if: github.event_name== 'push'
+   if: github.event_name == 'pull_request'
    needs: [Build]
    runs-on: ubuntu-latest
    environment:
-     name: Dev
+    name: Dev
+    url: ''
    env:
      ENV_RESOURCEGROUP: devrg
      ENV_RESOURCEGROUPLOCATION: uksouth
 
    steps:
 
-    #Checkout the repository
-    - name: Checkout Repository
-      uses: actions/checkout@master
+    
 
     #Use the azure provided action to log on to azure using service pricipal
     - name: Login to Azure
