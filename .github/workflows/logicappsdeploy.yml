@@ -53,6 +53,7 @@ jobs:
    
   DeployTest:
    name: Deploy to Test
+   if: github.event_name =='pull_request'
    runs-on: ubuntu-latest
    environment:
     name: Test
