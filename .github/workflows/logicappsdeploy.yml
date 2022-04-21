@@ -1,21 +1,22 @@
 #Name of the GitHub Action
-name: Deploy Logic Apps TEST
+name: Deploy Logic Apps
 
 #Set the action on which the workflow will trigger
 on:
- pull_request:
+ push:
   branches: 
-     - release*
+     - Dev
 
 jobs:
   
   DeployDev:
-   name: Deploy to TEST
+   name: Deploy to Dev
+   if: github.event_name == 'push'
    runs-on: ubuntu-latest
    environment:
-    name: Test
+    name: Dev
    env:
-     ENV_RESOURCEGROUP: testrg
+     ENV_RESOURCEGROUP: devrg
      ENV_RESOURCEGROUPLOCATION: uksouth
 
    steps:
@@ -23,7 +24,7 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v3
       with:
-       ref: release-april2022
+       ref: Dev
     
 
     #Use the azure provided action to log on to azure using service pricipal
@@ -46,11 +47,10 @@ jobs:
     # Log Out From Azure 
     - name: Logout
       run: az logout
-   
+
   DeployTest:
-   name: Deploy to Test
-   if: github.event_name =='pull_request'
-   #needs: [DeployDev]
+   name: Deploy to TEST
+   needs: [DeployDev]
    runs-on: ubuntu-latest
    environment:
     name: Test
@@ -63,7 +63,7 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v3
       with:
-       ref: 'release*'
+       ref: release*
     
 
     #Use the azure provided action to log on to azure using service pricipal
@@ -85,4 +85,5 @@ jobs:
       
     # Log Out From Azure 
     - name: Logout
-      run: az logout    
+      run: az logout 
+ 
