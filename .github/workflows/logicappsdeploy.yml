@@ -15,6 +15,7 @@ jobs:
   
   DeployDev:
    name: Deploy to Dev
+   if: github.event_name=='push'
    runs-on: ubuntu-latest
    environment:
     name: Dev
@@ -54,7 +55,7 @@ jobs:
   DeployTest:
    name: Deploy to Test
    if: github.event_name =='pull_request'
-   needs: [DeployDev]
+   #needs: [DeployDev]
    runs-on: ubuntu-latest
    environment:
     name: Test
